@@ -1,0 +1,81 @@
+<div class="title" style="background-color: #e3f0fa;height: 56px;">
+	<span class="title_rj" id="typename">全部信息</span>
+</div>
+<div>
+	<div class="serveNews_list" style="padding: 0;">
+        <ul>
+			<script id="listDot3" type="text/x-dot-template">
+				{{?  it.rows && it.rows.length > 0}} {{~  it.rows :value}}
+					<li style="border-bottom: 1px solid #E5E5E5;padding: 10px 0;height: 50px;">
+					<a href="javascript:;">
+                        <div class="a_div" data-loadId={{=value.id}} data-fileName={{=value.titleName}} data-fileUrl={{=value.fileUrl}}>
+                            <div class="new_box" style="padding: 0 0 0 20px;">
+                                <div class="new_box_title" style="font-size: 14px;">{{=value.titleName}}</div>
+                            </div>
+                            <img src="./img/down.png" alt="" style="width: 20px;height: 20px;">
+                            {{? value.createTime.substring(0,4) == down_year}}
+                            <div style="width: 50px;margin:0 20px;text-align: right;" class="hidden-xs">{{=value.createTime.substring(5,10)}}</div>
+                            {{?? value.createTime.substring(0,4) != down_year}}
+                            <div style="width: 100px;margin:0 20px;text-align: right;" class="hidden-xs">{{=value.createTime.substring(0,10)}}</div>
+                            {{?}}
+                        </div>
+                    </a>
+					</li>
+                {{~}} 
+                {{??}}
+                    <div style="display:flex;justify-content: center;">
+                        <img src="./img/black.png" alt="">
+                    </div>
+				{{?}}
+			</script>
+		</ul>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+    // 获取当前年份
+    var down_date = new Date();
+    var down_year = String(down_date.getFullYear())
+	$(function() {
+        var data = "{url:'website/frontendWebsite/captionList',data:['classId=" + classId + "','pageSize="+ pageSize +"','pageNumber ="+pageNumber +"']}";
+        // $('#typename').text(innertext);
+        $('#listDot3').attr('data',data);
+        loadTmpl('#listDot3');
+        $(document).on('click','.serveNews_list .a_div',function() {
+            // 文件下载
+            var fileName = $(this).attr('data-fileName')
+            var fileUrl = imgUrl + $(this).attr('data-fileUrl')
+            download(fileUrl,fileName)
+            // 向后台保存下载
+            var id = $(this).attr('data-loadId')
+            var data = {id:id}
+            ITSOFT.dataAjax({
+                website: website,
+                url: dataUrl + 'website/frontendWebsite/getCaptionById',
+                data: data,
+                type: "post",
+                'Content-Type': "application/x-www-form-urlencoded",
+                cache: false,
+                async: true,
+                success: function (res) {
+                },
+            })
+        })
+	})
+
+</script>
+
+
+<style scoped>
+	@media (max-width: 768px) {
+		.data_rt .new_box{
+            display: block;
+            width: 100%;
+            padding-right: 50px;
+        }
+        .serveNews_list ul li img {
+            position: relative;
+        }
+    }
+</style>

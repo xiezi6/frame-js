@@ -1,0 +1,46 @@
+<div>
+	<div class="title">
+		<span class="title_rj" id="typename">全部信息</span>
+	</div>
+	<div>
+		<div class="">
+			<ul class="news-listBox">
+				<script id="listDot2" type="text/x-dot-template">
+					{{? it.list && it.list.length > 0}} {{~  it.list :value}}
+						<li pages={{=it.page}} class="list-item">
+							
+							<a href="news_detail.html?id={{=value.id}}" class="list-item-title">
+								<div class="new_box">
+									<div class="new_box_title">{{=value.title}}</div>
+								</div>
+							</a>
+							<div class="list-item-time">{{=value.publishTime.substring(0,10)}}</div>
+						</li>
+					{{~}} {{??}}
+						<div style="display:flex;justify-content: center;">
+							<img src="./img/black.png" alt="">
+						</div>
+					{{?}}
+				</script>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="page">
+	<div id="pagination" class="pagination"></div>
+</div>
+
+<script type="text/javascript">
+	$(function () {
+		if (typeof (typeCode) == 'undefined' && typeof (innertext) == 'undefined') {
+			var data = "{url:'website/frontendWebsite/lists',isPage:1,data:['keyword=" + findValue + "','pageSize=" + pageSize + "','pageIndex=" + pageIndex + "']}";
+			$('.title').hide();
+		} else {
+			var data = "{url:'website/frontendWebsite/lists',isPage:1,data:['mode= 0','code=" + typeCode + "','pageSize=" + pageSize + "','pageIndex=" + pageIndex + "']}";
+			$('#typename').text(innertext);
+		}
+
+		$('#listDot2').attr('data', data);
+		loadTmpl('#listDot2');
+	})
+</script>

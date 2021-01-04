@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>后勤服务大厅</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/website.css" />
+    <link rel="stylesheet" href="css/layui.css">
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/swiper.min.js"></script>
+    <script src="js/doT.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/crypto-js.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/dencrypt.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/website.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/common.js"></script>
+</head>
+
+<body>
+    <div id="header">
+        <script type="text/javascript">
+            $('#header').load("control/header.html");
+        </script>
+    </div>
+    <div class="layui-container">
+        <div id="hall-news">
+            <!-- 新闻盒子内容 -->
+        </div>
+        <div id="hall-table"></div>
+        <div id="hall-bianmin"></div>
+    </div>
+
+    <footer class="footer" id="footer">
+        <script type="text/javascript">
+            $('#footer').load("control/footer.html");
+        </script>
+    </footer>
+</body>
+<script>
+    var indexBox = {};
+
+    // 加载模板
+    indexBox.style = "lostTable"
+    // indexBox.type = "link004"
+    indexBox.url = "repair/myRepair/frontend/visitorList"
+    // $('#hall-news').load('control/indexBox.html');
+    $('#hall-table').load('control/indexBox.html');
+    // $('#hall-bianmin').load('control/indexBox.html');
+
+    // 跳转：报修
+    // $('.repair-consult').attr('href', loginUrl + "/repairCatalogue");                   // 我要报修
+    // $('.repairMore').attr('href', (repairHall + 'index'));                              // 更多
+    // 跳转：监督
+    // $('.service-consult').attr('href', loginUrl + "/servicesCatalogue");                   // 我要报修
+    // $('.serviceMore').attr('href', (serviceHall + 'index'));                              // 更多
+    // 跳转：二手市场
+	// $('.marketPublish').attr('href', loginUrl + "/microMarket");
+    // $('.marketMore').attr('href', "lost.html");                                           // 更多
+    // 跳转：失物招领
+	// $('.lostPublish').attr('href', loginUrl + "/microLost");
+    // $('.lostMore').attr('href', "lost.html");                                           // 更多
+
+</script>
+
+</html>

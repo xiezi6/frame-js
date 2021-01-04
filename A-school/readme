@@ -1,0 +1,3 @@
+1、首页加载现在分三种：table（服务监督、报修、二手市场、失物招领。）、news、bianmin。
+2、load加载indexBox文件,所传值在indexBox也中有描述
+3、table传style = "table",url = "*******"; news传style = "news",type = "link00*",bianmin传style = "bianmin",type = "link00*",

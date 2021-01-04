@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>导航栏</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .header{
+            border-bottom: solid 1px #5098db;
+        }
+        .nav{
+            position: fixed;
+            top: 35px;
+            margin-left: 400px;
+        }
+        .firstul li{
+            display: inline-block;
+            list-style: none;
+            width: 70px;
+            height: 30px;
+            line-height: 30px;
+            padding: 10px;
+            text-align: center;
+            transition: background-color 0.5s linear;
+        }
+        .firstul li a{
+            color: #57579e;
+            text-decoration: none;
+            transition: color 0.5s ease-in-out;
+        }
+        .firstul li:hover{
+            background-color: #eed7b9;
+        }
+        .firstul li:hover a{
+            color: #514e4e;
+        }
+        .secondul{
+            background-color: #c7e1ea;
+            position: absolute;
+            width: 180px;
+            margin-left: -10px;
+            margin-top: 10px;
+            opacity: 0;
+            transform: translateY(0px);
+            transition: transform 0.5s linear,opacity 0.5s ease-in-out;
+        }
+        .firstul li:hover .secondul{
+            opacity: 1;
+            transform: translateY(10px);
+        }
+        .secondul li{
+            display: block;
+            height: 20px;
+            line-height: 20px;
+            width: 89%;
+        }
+        .secondul li:hover{
+            background-color: #a0b9c9;
+        }
+        .secondul::before{
+            content: "";
+            border-color: transparent transparent #c7e1ea transparent;
+            border-width: 8px;
+            position: absolute;
+            bottom: 100%;
+            left: 20%;
+            border-style: solid;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <a href=""><img src="logo.png" alt="河北大学"></a>
+        </div>
+        <div class="nav">
+            <ul class="firstul">
+                <li><a href="">首页</a></li>
+                <li><a href="">学校概况</a>
+                    <ul class="secondul">
+                        <li><a href="">学校简介</a></li>
+                        <li><a href="">学校章程</a></li>
+                        <li><a href="">历任领导</a></li>
+                        <li><a href="">现任领导</a></li>
+                        <li><a href="">虚拟校园</a></li>
+                        <li><a href="">校园风光</a></li>
+                    </ul>
+                </li>
+                <li><a href="">机构设置</a></li>
+                <li><a href="">师资队伍</a></li>
+                <li><a href="">学科专业</a>
+                    <ul class="secondul">
+                        <li><a href="">本科专业</a></li>
+                        <li><a href="">硕士学位授权学科</a></li>
+                        <li><a href="">硕士专业学位</a></li>
+                        <li><a href="">博士学位授权学科</a></li>
+                        <li><a href="">重点学科</a></li>
+                        <li><a href="">博士后流动站</a></li>
+                        <li><a href="">博士后工作站</a></li>
+                    </ul>
+                </li>
+                <li><a href="">招生信息</a></li>
+                <li><a href="">人才招聘</a></li>
+                <li><a href="">合作办学</a></li>
+                <li><a href="">信息公开</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

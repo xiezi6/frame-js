@@ -1,0 +1,158 @@
+@import "pageCss/base.css";
+@import "pageCss/common.css";
+@import "pageCss/wap.css";
+
+/* 首页样式 start */
+
+/* 报修监督 失物招领 表格样式 start */
+.repairTable-content .top-one {
+  height: 50px;
+  color: #4b4b4b;
+  font-weight: bold;
+  border-bottom: 1px dashed #dddddd;
+}
+
+.repairTable-content .top-one .r-name {
+  color: #4b4b4b;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 50px;
+}
+
+.repairTable-content .top-one td {
+  line-height: 30px;
+  height: 35px;
+  line-height: 35px;
+}
+
+.repairTable-content .top_two {
+  margin-top: 10px;
+}
+
+.repairTable-content .top_two a:hover {
+  color: #014B92;
+}
+
+.repairTable-content .r-name {
+  width: 80px;
+  text-align: center;
+}
+
+.repairTable-content .top_two tr {
+  height: var(--table-line-height);
+}
+
+.repairTable-content .top_two td {
+  color: #666;
+}
+
+.repairTable-content .conter {
+  width: calc(100% - 132px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: normal;
+  display: block;
+  padding-right: 0px;
+}
+
+.repairTable-content .conter a {
+  height: 30px;
+  line-height: 30px;
+  overflow: hidden;
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: normal;
+}
+
+/* 报修监督 失物招领 表格样式 end */
+
+/* 首页新闻盒子和新闻列表页(title和time列表)样式 start */
+.container-chunk-title {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--title-color);
+  /* margin-bottom: 20px; 因表格pass掉 */
+}
+
+.container-chunk-title h1:last-of-type {
+  margin-right: 0;
+}
+
+.container-chunk-title h1 {
+  cursor: default;
+}
+
+.container-chunk-title h1,
+.container-chunk-title .title-active {
+  font-size: 18px;
+  line-height: 40px;
+  color: var(--title-color);
+  margin: 0;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.news-listBox {
+  overflow: hidden;
+}
+
+.news-listBox .list-item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.news-listBox .list-item .list-item-title {
+  width: 83%;
+  color: #333333;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+}
+
+.news-listBox .list-item .list-item-time {
+  color: #999999;
+  display: inline-block;
+  width: 150px;
+  text-align: right;
+}
+
+.news-listBox .list-item:hover span {
+  color: #014B92 !important;
+}
+
+/* 首页新闻盒子和新闻列表页 样式 end */
+
+/* 便民服务 样式 start */
+.service .container-chunk-title{
+  margin-bottom: 0;
+}
+
+.service-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.serviceLiBox {
+  width: calc(100% / 5);
+  font-size: 16px;
+}
+
+.serviceLiBox img {
+  padding: 40px 0 16px 0;
+  width: 40px;
+}
+
+/* 便民服务 样式 end */
+
+/* 首页样式 end */

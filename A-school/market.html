@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>后勤服务大厅</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/element-ui.css">
+        <link rel="stylesheet" href="fonts/element-icons.ttf" />
+        <link rel="stylesheet" href="fonts/element-icons.woff" />
+        <link rel="stylesheet" href="css/website.css" />
+        <link rel="stylesheet" href="css/layui.css">
+        <script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/element-ui.js"></script>
+        <script src="js/doT.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/crypto-js.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/dencrypt.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/website.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+<style scoped>
+    .richradio,.richcheckbox {
+        border:1px solid #CCC;
+        color:#666;
+        display:inline-block;
+        height:26px;
+        line-height:26px;
+        padding:2px 10px 2px 5px;
+        min-width:60px;
+        text-align:center;
+        margin:2px;
+        border-radius:4px;
+        user-select:none;
+    }
+
+
+    .selects {
+        padding: 20px 30px 20px;
+        margin: auto;
+    }
+    .commentsdiv {
+		background-color: #FFFFFF;
+	}
+
+    #wrap {
+        margin: 10px 0 50px;
+        background-color: #fff;
+        box-shadow:0px 1px 5px 0px rgba(44,102,193,0.2);
+    }
+
+	.commontList>.comment:first-child {
+		padding-top: 0px;
+	}
+    .select {
+		height: 80px;
+    }
+    .select_top .search img {
+        margin-left: 18px;
+        margin-bottom: 16px;
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+    }
+    .select_top .search input {
+        margin-left: 20px;
+        display: inline-block;
+        width: 90%;
+        height: 100%;
+        font-size: 26px;
+        color: #333333;
+    }
+    .select_top .search {
+        margin: 10px 30px;
+        margin-bottom: 30px;
+        height: 60px;
+        border: 1px solid #EDEDED;
+        border-radius: 30px;
+        background-color: #FFFFFF;
+    }
+	.select_top {
+		width: 100%;
+		position: fixed;
+		background-color: #FFFFFF !important;
+		z-index: 999;
+		height: 210px;
+		border-bottom: 1px solid #EDEDED;
+
+	}
+
+	.commontList {
+		margin: 40px 30px;
+	}
+
+	.commontList {
+		margin: 0 30px;
+	}
+    .commontList .comment {
+        padding: 25px 0;
+        border-bottom: 1px dashed #F1F1F1;
+    }
+    .commontList .comment:last-child {
+        border-bottom: 0;
+    }
+
+    .comment_top .suggest {
+        display: inline-block;
+        text-align: center;
+        width: 40px;
+        height: 25px;
+        line-height: 25px;
+        font-size: 14px;
+        background-color: #E7F0FF;
+        color: #3080FF;
+        border-radius: 4px;
+    }
+    .comment_top .complain {
+        display: inline-block;
+        text-align: center;
+        width: 40px;
+        height: 25px;
+        line-height: 25px;
+        font-size: 14px;
+        background-color: #FFE7E7;
+        color: #F04242;
+        border-radius: 4px;
+    }
+    .comment_top .canteen {
+        margin-left: 11px;
+        color: #000000;
+        font-size: 18px;
+        font-weight: blod;
+    }
+    .comment_top .state_1 {
+        font-size: 12px;
+        width: 50px;
+        height: 22px;
+        text-align: center;
+        line-height: 30px;
+        border: 1px solid #D9D9D9;
+        border-radius: 4px;
+        color: #666666;
+    }
+	.comment_top {
+		display: flex;
+		justify-content: space-between;
+    }
+    .comment_top .state_0 {
+        font-size: 12px;
+        width: 50px;
+        height: 22px;
+        text-align: center;
+        line-height: 20px;
+        border: 1px solid #F47C48;
+        border-radius: 4px;
+        color: #EB4E09;
+    }
+
+	.comment_content {
+		margin-top: 16px;
+		color: #656565;
+		font-size: 16px;
+	}
+
+	.comment .bottom {
+		margin-top: 25px;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		color: #999999;
+		font-size: 22px;
+    }
+    .comment .bottom .icon_text {
+        display: flex;
+        text-align: center;
+    }
+
+    .comment .bottom .icon_text:last-child {
+        text-align: right;
+    }
+
+    .comment .bottom .comment_time {
+        margin-left: 20px;
+	}
+    .comment .bottom .icon_text img {
+        position: relative;
+        bottom: -1px;
+        left: 0;
+        margin-right: 10px;
+        width: 20px;
+        height: 24px;
+    }
+            
+    .comment .bottom .icon_text div {
+        font-size: 22px;
+    }
+    
+
+	.comment .zan {
+		color: #999999;
+		font-size: 10px;
+		margin-top: 10px;
+    }
+    .comment .zan span {
+			margin-right: 30px;
+		}
+	
+	.comment .imgShow {
+        margin-top: 16px;
+		display: flex;
+		width: 100%;
+    }
+    .comment .imgShow img {
+        margin-right: 20px;
+        width: 160px;
+        height: 110px;
+    }
+    .bottom .icon_span:first-child{
+        float: left;
+        height: auto;
+        display: flex;
+        font-size: 14px;
+        align-items: center;
+    }
+    .bottom .icon_span div{
+        display: flex;
+        align-items: center;
+    }
+    .bottom .icon_span:last-child {
+        float: right;
+        display: flex;
+        font-size: 14px;
+        align-items: center;
+    }
+    .icon_span img{
+        margin-right: 6px;
+        width: 14px;
+        height: 16px;
+        display: inline-block;
+    }
+    .comment .bottom .comment_time {
+        display: flex;
+        align-items: center;
+    }
+    .comment .bottom .comment_time img{
+        height: 14px;
+    }
+    
+    .location {
+        width: 14px!important;
+        height: 16px;
+    }
+    .selects .push {
+        float: right;
+        width:121px;
+        height:33px;
+        text-align: center;
+        line-height: 33px;
+        background:rgba(243,75,21,1);
+        border-radius:16px;
+        /* font-size:16px;
+        font-family:Microsoft YaHei;
+        color:rgba(254,254,254,1); */
+    }
+    .selects .push a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        font-size:16px;
+        font-family:Microsoft YaHei;
+        color:rgba(254,254,254,1);
+    }
+    /* 修改按钮样式 */
+    .selects .el-radio-button__inner {
+        border: 0px;
+        color: #333333!important;
+        padding: 10px 15px;
+    }
+    .selects .el-radio-button:first-child .el-radio-button__inner {
+        border-left: 0px;
+    }
+    .selects .el-radio-button__orig-radio:checked+.el-radio-button__inner {
+        background-color: #FFFFFF!important;
+        border-left: 0px;
+        color: #409eff!important;
+    }
+    .el-pagination__total {
+        margin-left: 20px;
+    }
+    .select-bottom {
+        margin-top: 5px;
+    }
+    /* 自适应 */
+    @media (max-width: 769px) {
+        .commontList {
+            margin: 10px 30px;
+        }
+        .container {
+            padding: 0;
+        }
+        .bottom {
+            position: relative;
+        }
+        .bottom .icon_span_location {
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            margin-left: 0!important;
+        }
+        .canteen {
+            font-size: 16px!important;
+        }
+        .comment .imgShow img {
+            width: 100px;
+            height: 80px;
+        }
+        .selects .push {
+            float: none;
+        }
+        .select-row {
+            position: relative;
+        }
+        .type-rows {
+            margin-top: 10px;
+        }
+        .select-row:last-child {
+            margin-top: -30px;
+        }
+        .select-type {
+            position: absolute;
+            left: 20px;
+            top: -5px;
+        }
+        .select-bottom {
+            margin-top: 90px;
+        }
+    }
+</style>
+
+<body>
+	<div class="header" id="header">
+		<script type="text/javascript">
+			$('#header').load("control/header.html");
+		</script>
+	</div>
+	<!--内容部分-->
+    <div class="content" style="background-color: #F9F9F9;">
+        <div class="container maxWidth">
+            <div class="sls-navigation" style="margin-bottom: 12px;font-size: 12px;color: #666666;display: flex;align-items: center;">
+                <img src="./img/image/mbx.png" style="margin-right: 10px;width:11px;height: 13px;">
+                <a href="index.html" style="color: #666666;">首页</a>&nbsp;/&nbsp;
+                <a href="javascript:;" id="stypename" style="color: #666666;">二手市场</a>
+            </div>
+            <div id="wrap">
+                <!-- 选择器 -->
+                <div class="selects" style="border-bottom: 1px solid #F1F1F1;margin-bottom: 25px;color: #333333;">
+                    <el-row class="select-row">
+                        <div style="margin-right: 10px;color: #999999;display: inline-block;">发布类型：</div>
+                        <el-radio-group
+                        class="hidden-xs"
+                        v-model="typeValue"
+                        size="medium"
+                        style="margin-right: 10px;color: #333333;"
+                        fill="#ededed"
+                        text-color="#000"
+                        @change="Change"
+                        >
+                            <el-radio-button label="全部"></el-radio-button>
+                            <el-radio-button label="出售"></el-radio-button>
+                            <el-radio-button label="求购"></el-radio-button>
+                        </el-radio-group>
+                        <el-radio-group
+                        class="visible-xs select-type"
+                        v-model="typeValue"
+                        size="medium"
+                        style="margin-right: 10px;color: #333333;margin-left: 50px;"
+                        fill="#ededed"
+                        text-color="#000"
+                        @change="Change"
+                        >
+                            <el-radio-button label="全部"></el-radio-button>
+                            <el-radio-button label="出售"></el-radio-button>
+                            <el-radio-button label="求购"></el-radio-button>
+                        </el-radio-group>
+                    </el-row>
+                    <!-- 物品类型 -->
+                    <el-row class="select-row type-rows">
+                        <div style="margin-right: 10px;color: #999999;display: inline-block;">物品类型：</div>
+                        <el-radio-group
+                        v-model="sortName"
+                        class="hidden-xs"
+                        size="medium"
+                        style="margin-right: 10px;"
+                        fill="#ededed"
+                        text-color="#000"
+                        @change="Change"
+                        >   
+                            <el-radio-button label="全部"></el-radio-button>
+                            <el-radio-button :key="item.id" v-for="item in sortListData" :label="item.name"></el-radio-button>
+                        </el-radio-group>
+                        <el-radio-group
+                        class="visible-xs select-type"
+                        v-model="sortName"
+                        size="medium"
+                        style="margin-left: 50px;"
+                        fill="#ededed"
+                        text-color="#000"
+                        @change="Change"
+                        >   
+                            <el-radio-button label="全部"></el-radio-button>
+                            <el-radio-button :key="item.id" v-for="item in sortListData" :label="item.name"></el-radio-button>
+                        </el-radio-group>
+                    </el-row>
+                    <el-row class="select-bottom">
+                        <span class="hidden-xs" style="margin-right: 30px;color: #999999;line-height: 32px;">发布时间：</span>
+                        <el-date-picker
+                        clearable
+                        v-model="dateValue"
+                        type="daterange"
+                        size="small"
+                        style="width: 240px"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期"
+                        @change="Change()"
+                        value-format="yyyy-MM-dd"
+                        :default-time="['00:00:00', '23:59:59']"
+                        ></el-date-picker>
+                        <el-input
+                        class="hidden-xs"
+                        clearable
+                        size="small"
+                        v-model="inputValue"
+                        placeholder="标题/发布人"
+                        class="lostSearch"
+                        style="width: 180px;margin-left: 20px;"
+                        @change="Change"
+                        >
+                            <i slot="suffix" class="el-input__icon el-icon-search" @click="Change"></i>
+                        </el-input>
+                        <div class="push hidden-xs second_hand" @click="secondHandPush"><a href="second_hand_push.html">
+                            <img src="img/fabu.png" alt=""> 我要发布
+                        </a></div>
+                    </el-row>
+                    <el-row>
+                        <el-input
+                        class="visible-xs"
+                        clearable
+                        size="small"
+                        v-model="inputValue"
+                        placeholder="标题/发布人"
+                        class="lostSearch"
+                        style="width: 240px;display: block;margin-top: 20px;float: left;"
+                        @change="Change"
+                        >
+                            <i slot="suffix" class="el-input__icon el-icon-search" @click="Change"></i>
+                        </el-input>
+                    </el-row>
+                    <el-row>
+                        <div class="push visible-xs" style="margin-top: 20px;" @click="secondHandPush"><a href="second_hand_push.html">
+                            <img src="img/fabu.png" alt="" style="margin-right: 5px;">我要发布
+                        </a></div>
+                    </el-row>
+                </div>
+
+                <!-- 列表 -->
+                <div class="commontList" style="color: blueviolet;">
+                    <div class="comment" v-for="item in secondHandList" @click="toDetailPage(item.id)">
+                        <a :href="'second_hand_detail.html?id=' + item.id">
+                            <div class="comment_top" style="display: flex;">
+                                <span>
+                                    <span :class="commentTypeClassName[item.type]">{{commentType[item.type]}}</span>
+                                    <span class="canteen">{{item.title}}</span>
+                                </span>
+                                <!-- <span :class="item.replay.length>0 ? 'state_1' : 'state_0'">{{item.replay.length>0 ? '已回复' : '未回复'}}</span> -->
+                            </div>
+                            <div class="comment_content">{{item.description}}</div>
+                            <div class="bottom hidden-xs" style="margin-top: 10px;">
+                                <div class="icon_span">
+                                    <div><img src="./img/image/ren@2x.png" mode=""><span>{{ item.createName }}</span></div>
+                                    <div class="comment_time"><img src="./img/image/shijian@2x.png" mode=""><span space="emsp">{{ item.createTime.substring(0,16) }}</span></div>
+                                </div>
+                                <span class="icon_span" style="margin-left: 20px;">
+                                    <img src="./img/image/dz.png" class="location">
+                                    <span>{{ item.address}}</span>
+                                </span>
+                            </div>
+                            <div class="imgShow" v-if="item.images">
+                                <img v-for='imgSrc in item.images' :src="imgUrl + '/' + imgSrc">
+                            </div>
+                            <div class="bottom visible-xs" style="margin-top: 15px;height: 50px;">
+                                <div class="icon_span">
+                                    <div><img src="./img/image/ren@2x.png" mode=""><span>{{ item.createName }}</span></div>
+                                    <div class="comment_time"><img src="./img/image/shijian@2x.png" mode=""><span space="emsp">{{ item.createTime.substring(0,16) }}</span></div>
+                                </div>
+                                <span class="icon_span icon_span_location" style="margin-left: 20px;">
+                                    <img src="./img/image/dz.png" class="location">
+                                    <span>{{ item.address}}</span>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                    <div style="display: flex;justify-content: center;">
+                        <el-pagination
+                        style="padding: 20px 0;"
+                        background
+                        layout="prev, pager, next,jumper"
+                        @size-change="evtPageSizeChange"
+                        @current-change="evtPageCurrentChange"
+                        :current-page.sync="currentPage"
+                        :page-sizes="[10, 20, 50, 100]"
+                        :total="totalRows"
+                        ></el-pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<!--底部区域-->
+	<div class="footer" id="footer">
+		<script type="text/javascript">
+			$('#footer').load("control/footer.html");
+		</script>
+	</div>
+	<!--底部区域end-->
+</body>
+
+<script>
+	new Vue({
+		el: "#wrap",
+		data: function () {
+			return {
+                sortListData: [],
+                dateValue: [],
+                inputValue: '',
+                sortName: '全部',
+                typeValue: '全部',
+                secondHandList: [],
+                imgUrl,
+                conditions: [{
+                    andOr: "and",
+                    searchField: "status",
+                    operator: "=",
+                    searchValue: 1,
+                }],
+                pageSize: '10',
+                pageIndex: '1',
+                // 物品类型
+				commentType: {
+					'1': '出售',
+					'2': '求购'
+				},
+				// 物品样式
+				commentTypeClassName: {
+					'1': 'suggest',
+					'2': 'complain',
+                },
+                currentPage: 1,
+                totalRows: 0,
+			}
+		},
+		methods: {
+            evtPageSizeChange(val) {
+                //每页数量
+                this.pageSize = val;
+                this.getList();
+            },
+            evtPageCurrentChange(val) {
+                //分页
+                this.currentPage = val;
+                this.getList();
+            },
+            Change() {
+                // console.log(this.typeValue);
+                this.loading = true;
+                this.conditionsObj();
+                this.getList();
+            },
+            conditionsObj() {
+                let that = this
+                // 列表参数对象
+                this.conditions = [{
+                    andOr: "and",
+                    searchField: "status",
+                    operator: "=",
+                    searchValue: 1,
+                }];
+                // 分类
+                if (this.typeValue && this.typeValue != "全部") {
+                    var type = "";
+                    if (this.typeValue == "出售") {
+                        type = "1";
+                    } else if (this.typeValue == "求购") {
+                        type = "2";
+                    }
+                    this.conditions.push({
+                        andOr: "and",
+                        searchField: "type",
+                        operator: "=",
+                        searchValue: type,
+                    });
+                }
+                // 时间字段
+                if (this.dateValue && this.dateValue.length > 0) {
+                    var beginTime = this.dateValue[0];
+                    var endTime = this.dateValue[1];
+                    this.conditions.push({
+                        andOr: "and",
+                        searchField: "createTime",
+                        operator: ">",
+                        searchValue: beginTime,
+                    });
+                    this.conditions.push({
+                        andOr: "and",
+                        searchField: "createTime",
+                        operator: "<",
+                        searchValue: endTime,
+                    });
+                }
+                // 搜索
+                // console.log(this.inputValue);
+                if (this.inputValue && this.inputValue.length > 0) {
+                    var searchStr = this.inputValue;
+                    this.conditions.push(
+                        {
+                            andOr: "and",
+                            searchField: "contacts",
+                            operator: "like",
+                            searchValue: searchStr,
+                        },
+                        {
+                            andOr: "or",
+                            searchField: "title",
+                            operator: "like",
+                            searchValue: searchStr,
+                        });
+                }
+                // 物品分类
+                if(this.sortListData && this.sortListData.length > 0) {
+                    if(that.sortName != "全部" && that.sortName) {
+                        var sortName = that.sortName
+                        this.conditions.push({
+                            andOr: "and",
+                            searchField: "itemName",
+                            operator: "=",
+                            searchValue: sortName,
+                        })
+                    }
+                }
+            },
+            getList:function() {
+                this.conditions
+                let that = this;
+                console.log(that.conditions,"that.conditions")
+                var data = {
+                    condition: JSON.stringify(that.conditions),
+                    pageSize: that.pageSize,
+                    pageIndex: that.currentPage
+                }
+                ITSOFT.dataAjax({
+                    url: dataUrl + "micro/frontendManager/list",
+                    data: data,
+                    type: "post",
+                    'Content-Type': "application/x-www-form-urlencoded",
+                    cache: false,
+                    async: true,
+                    success: function (res) {
+                        if(res.data.rows) {
+                            res.data.rows.forEach(item=>{
+                                if(item.images) {
+                                    item.images = item.images.split(',')
+                                }
+                            })
+                        }
+                        that.secondHandList = res.data.rows;
+                        that.totalRows = res.data.total
+                    }
+                })
+            },
+            getSortList() {
+                let that = this
+                this.loading=true
+                const data = {
+                }
+                ITSOFT.dataAjax({
+                    url: dataUrl + "micro/frontendManager/marketGoodsItemList",
+                    data: data,
+                    type: "post",
+                    'Content-Type': "application/x-www-form-urlencoded",
+                    cache: false,
+                    async: true,
+                    success: function (res) {
+                        if(res.status == "success") {
+                            that.sortListData = res.data.rows
+                        }
+                    }
+                })
+            },
+            // 默认搜索一年的信息
+            getTime(){
+                var myDate = new Date();
+                var tYear = myDate.getFullYear();
+                var tMonth = myDate.getMonth();
+            
+                var m = tMonth + 1;
+                if (m.toString().length == 1) {
+                    m = "0" + m;
+                }
+                var tDay = myDate.getDate()+1
+                if (tDay.toString().length == 1) {
+                    tDay = "0" + m;
+                }
+                this.dateValue[0] = (tYear -1) +'-'+ m +'-' + tDay;
+                this.dateValue[1] = tYear +'-'+ m +'-' + tDay;
+            },
+            secondHandPush() {
+                if (!!TokenKey) {
+                    window.open(encodeURI('second_hand_push.html'));
+                } else {
+                    var str = window.location.href
+                    str = str.substring(0,str.length-23)
+                    var tempUrl = loginUrl + '/login?redirect=' + str + 'second_hand_push.html';
+                    // window.location.href = 'second_hand_market.html'
+                    window.open(encodeURI(tempUrl));
+                }
+            }
+		},
+        created:function() {
+            this.getSortList()
+            this.getList()
+            this.getTime()
+        }
+    })
+    
+</script>
+
+</html>

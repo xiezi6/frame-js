@@ -1,0 +1,358 @@
+<!-- 新闻列表盒子 -->
+<script id="loadNewsBox" type="text/x-dot-template">
+    {{? it}}
+    <div class="NewBox">
+        <!-- 列表头部 -->
+        <div class="container-chunk-title">
+            <div style="display: flex;align-items: center">
+                <h1 id="newsSign">
+                    {{=it[0].name}}
+                </h1>
+            </div>
+            <div class="newsMore">
+                <div class="title-right">
+                    <a href="news.html?typeId={{=it[0].firstCode}}01" class="more">
+                        <span style="color: #01488E;">MORE</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- 新闻列表 -->
+        <div class="news-content">
+            <div class="news-listBox newsBoxHeight" id="news-listBox">
+                {{~ it[0].list :value :index}} {{? index <=5}}
+                <div class="list-item" id="list-item">
+                    <a class="list-item-title" href="news_detail.html?id={{=value.id}}">
+                        <span>{{=value.title}}</span>
+                    </a>
+                    <span class="list-item-time">{{=value.publishTime.substring(0,10)}}</span>
+                </div>
+                {{?}}{{~}}
+            </div>
+        </div>
+    </div>
+    {{?}}
+</script>
+<!-- 新闻列表盒子 end -->
+
+<!-- 便民服务盒子 start -->
+<script id="loadBianminBox" type="text/x-dot-template">
+    {{? it}}
+    <div class="service">
+        <!-- 列表头部 -->
+        <div class="container-chunk-title">
+            <div style="display: flex;align-items: center">
+                <h1 id="newsSign">
+                    便民服务
+                </h1>
+            </div>
+            <div class="newsMore">
+                <div class="title-right">
+                    <!-- <a href="{{=config}}/site">
+                        <img src="img/edit.png" alt="" style="margin-right: 3px">
+                        <span style="color: #01488E;">我要发布</span>
+                    </a> -->
+                    <!-- <a href="news.html?typeId={{=it[0].firstCode}}01" class="more">
+                        <span style="color: #01488E;">MORE</span>
+                    </a> -->
+                </div>
+            </div>
+        </div>
+        <!-- 新闻列表 -->
+        <div class="service-content">
+            {{~ it :value :index}}
+            <div class="serviceLiBox">
+                <a href="{{=value.link}}" target="{{=(value.open==0) ? '_self':'_blank'}}" class="flexCenter">
+                    <img src="{{=imgUrl}}{{=value.images}}">
+                    <span title="{{=value.title}}">{{=value.name}}</span>
+                </a>
+            </div>
+            {{~}}
+        </div>
+    </div>
+    {{?}}
+</script>
+<!-- 便民服务盒子 end -->
+
+<!-- 报修表格 start -->
+<script id="loadRepairTableBox" type="text/x-dot-template">
+    {{? it}}
+    <div class="container-chunk-title">
+        <div style="display: flex;align-items: center">
+            <h1 id="newsSign">
+                报修服务
+            </h1>
+        </div>
+        <div class="newsMore">
+            <div class="title-right">
+                <a href="{{=loginUrl}}repairCatalogue" class="repair-consult" target="_blank">
+                    <img src="img/edit.png" alt="" style="margin-right: 3px">
+                    <span style="color: #01488E;">我要发布</span>
+                </a>
+                <a href="{{=repairHall}}index" class="more repairMore" target="_blank">
+                    <span style="color: #01488E;">MORE</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="repairTable-content">
+        <table style="width: 100%;height: 100%;">
+            <!-- 表格头部 -->
+            <thead>
+                <tr class="top-one">
+                    <td style="text-align: left;">标题</td>
+                    <td style="text-align: center;">报修人</td>
+                    <td hidden-xs" style="text-align: center;">报修时间</td>
+                    <td style="text-align: right;padding-right: 10px">状态</td>
+                </tr>
+            </thead>
+            <!-- 表格内容 -->
+            <tbody class="top_two">
+            {{? it.rows && it.rows.length > 0}} {{~ it.rows :value}}
+                <tr>
+                    <td class="conter" style="text-align:left;width:calc(100% - 220px);">
+                        <a href="{{=repairHall}}repair_detail.html?id={{=value.id}}" target="_blank">{{=value.content}}</a>
+                    </td>
+                    <td style="text-align:center;width:60px;" class="hidden-xs">{{=value.createName.substring(0,1)}}**</td>
+                    <td style="text-align:center;width:100px;white-sapce:nowrap">{{=value.editTime.substring(0,10)}}</td>
+                    {{? value.status == '0'}}
+                        <td style="text-align:right;width:60px;color: #FF5141;">待审核</td>
+                    {{?? value.status == '1' || value.status == '2'}}
+                        <td style="text-align:right;width:60px;color: #FF5141;">待受理</td>
+                    {{?? value.status == '3'}}
+                        <td style="text-align:right;width:60px;color: #FF9539;">待完工</td>
+                    {{?? value.status == '4'}}
+                        <td style="text-align:right;width:60px;color: #0BC99D;">{{= (value.finishTime / 60).toFixed(1) }}小时</td>
+                    {{?}}
+                </tr>
+            {{~}}{{?}}
+            </tbody>
+        </table>
+    </div>
+    {{?}}
+</script>
+<!-- 报修表格 end -->
+
+<!-- 监督表格 start -->
+<script id="loadServiceTableBox" type="text/x-dot-template">
+    {{? it}}
+    <div class="container-chunk-title">
+        <div style="display: flex;align-items: center">
+            <h1 id="newsSign">
+                服务监督
+            </h1>
+        </div>
+        <div class="newsMore">
+            <div class="title-right">
+                <a href="{{=loginUrl}}servicesCatalogue" class="repair-consult" target="_blank">
+                    <img src="img/edit.png" alt="" style="margin-right: 3px">
+                    <span style="color: #01488E;">我要发布</span>
+                </a>
+                <a href="{{=serviceHall}}index" class="more repairMore" target="_blank">
+                    <span style="color: #01488E;">MORE</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="repairTable-content">
+        <table style="width: 100%;height: 100%;">
+            <!-- 表格头部 -->
+            <thead>
+                <tr class="top-one">
+                    <td style="text-align: left;">标题</td>
+                    <td style="text-align: center;">报修人</td>
+                    <td hidden-xs" style="text-align: center;">报修时间</td>
+                    <td style="text-align: right;padding-right: 10px">状态</td>
+                </tr>
+            </thead>
+            <!-- 表格内容 -->
+            <tbody class="top_two">
+            {{? it.rows && it.rows.length > 0}} {{~ it.rows :value}}
+                <tr>
+                    <td class="conter" style="text-align:left;width:calc(100% - 220px);">
+                        <a href="{{=serviceHall}}service_detail.html?id={{=value.id}}" target="_blank">{{=value.content}}</a>
+                    </td>
+                    <td style="text-align:center;width:60px;" class="hidden-xs">{{=value.createName.substring(0,1)}}**</td>
+                    <td style="text-align:center;width:100px;white-sapce:nowrap">{{=value.editTime.substring(0,10)}}</td>
+                    {{? value.status == '0'}}
+                        <td style="text-align:right;width:60px;color: #FF5141;">待审核</td>
+                    {{?? value.status == '1' || value.status == '2'}}
+                        <td style="text-align:right;width:60px;color: #FF5141;">待受理</td>
+                    {{?? value.status == '3'}}
+                        <td style="text-align:right;width:60px;color: #FF9539;">待完工</td>
+                    {{?? value.status == '4'}}
+                        <td style="text-align:right;width:60px;color: #0BC99D;">{{= (value.finishTime / 60).toFixed(1) }}小时</td>
+                    {{?}}
+                </tr>
+            {{~}}{{?}}
+            </tbody>
+        </table>
+    </div>
+    {{?}}
+</script>
+<!-- 监督表格 end -->
+
+<!-- 二手市场表格 start -->
+<script id="loadMarketTableBox" type="text/x-dot-template">
+    {{? it}}
+    <div class="container-chunk-title">
+        <div style="display: flex;align-items: center">
+            <h1 id="newsSign">
+                二手市场
+            </h1>
+        </div>
+        <div class="newsMore">
+            <div class="title-right">
+                <a href="{{=loginUrl}}microLost" class="repair-consult" target="_blank">
+                    <img src="img/edit.png" alt="" style="margin-right: 3px">
+                    <span style="color: #01488E;">我要发布</span>
+                </a>
+                <a href="market.html" class="more repairMore" target="_blank">
+                    <span style="color: #01488E;">MORE</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="repairTable-content">
+        <table style="width: 100%;height: 100%;">
+            <!-- 表格头部 -->
+            <thead>
+                <tr class="top-one">
+                    <td style="text-align: left;">标题</td>
+                    <td style="text-align: center;">报修人</td>
+                    <td hidden-xs" style="text-align: center;">报修时间</td>
+                    <td style="text-align: right;padding-right: 10px">状态</td>
+                </tr>
+            </thead>
+            <!-- 表格内容 -->
+            <tbody class="top_two">
+            {{? it.rows && it.rows.length > 0}} {{~ it.rows :value}}
+                <tr>
+                    <td class="conter" style="text-align:left;width:calc(100% - 220px);">
+                        <a href="marketDetail.html?id={{=value.id}}" target="_blank">{{=value.content}}</a>
+                    </td>
+                    <td style="text-align:center;width:60px;" class="hidden-xs">{{=value.createName.substring(0,1)}}**</td>
+                    <td style="text-align:center;width:100px;white-sapce:nowrap">{{=value.editTime.substring(0,10)}}</td>
+                    {{? value.status == '0'}}
+                        <td style="text-align:right;width:60px;color: #FF5141;">待审核</td>
+                    {{?? value.status == '1' || value.status == '2'}}
+                        <td style="text-align:right;width:60px;color: #FF5141;">待受理</td>
+                    {{?? value.status == '3'}}
+                        <td style="text-align:right;width:60px;color: #FF9539;">待完工</td>
+                    {{?? value.status == '4'}}
+                        <td style="text-align:right;width:60px;color: #0BC99D;">{{= (value.finishTime / 60).toFixed(1) }}小时</td>
+                    {{?}}
+                </tr>
+            {{~}}{{?}}
+            </tbody>
+        </table>
+    </div>
+    {{?}}
+</script>
+<!-- 二手市场表格 end -->
+
+
+<!-- 失物招领表格 start -->
+<script id="loadLostTableBox" type="text/x-dot-template">
+    {{? it}}
+    <div class="container-chunk-title">
+        <div style="display: flex;align-items: center">
+            <h1 id="newsSign">
+                失物招领
+            </h1>
+        </div>
+        <div class="newsMore">
+            <div class="title-right">
+                <a href="{{=loginUrl}}microMarket" class="repair-consult" target="_blank">
+                    <img src="img/edit.png" alt="" style="margin-right: 3px">
+                    <span style="color: #01488E;">我要发布</span>
+                </a>
+                <a href="lost.html" class="more repairMore" target="_blank">
+                    <span style="color: #01488E;">MORE</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="repairTable-content">
+        <table style="width: 100%;height: 100%;">
+            <!-- 表格头部 -->
+            <thead>
+                <tr class="top-one">
+                    <td style="text-align: left;">标题</td>
+                    <td style="text-align: center;">报修人</td>
+                    <td hidden-xs" style="text-align: center;">报修时间</td>
+                    <td style="text-align: right;padding-right: 10px">状态</td>
+                </tr>
+            </thead>
+            <!-- 表格内容 -->
+            <tbody class="top_two">
+            {{? it.rows && it.rows.length > 0}} {{~ it.rows :value}}
+                <tr>
+                    <td class="conter" style="text-align:left;width:calc(100% - 220px);">
+                        <a href="lostDetail.html?id={{=value.id}}" target="_blank">{{=value.content}}</a>
+                    </td>
+                    <td style="text-align:center;width:60px;" class="hidden-xs">{{=value.createName.substring(0,1)}}**</td>
+                    <td style="text-align:center;width:100px;white-sapce:nowrap">{{=value.editTime.substring(0,10)}}</td>
+                    {{? value.status == '0'}}
+                        <td style="text-align:right;width:60px;color: #FF5141;">待审核</td>
+                    {{?? value.status == '1' || value.status == '2'}}
+                        <td style="text-align:right;width:60px;color: #FF5141;">待受理</td>
+                    {{?? value.status == '3'}}
+                        <td style="text-align:right;width:60px;color: #FF9539;">待完工</td>
+                    {{?? value.status == '4'}}
+                        <td style="text-align:right;width:60px;color: #0BC99D;">{{= (value.finishTime / 60).toFixed(1) }}小时</td>
+                    {{?}}
+                </tr>
+            {{~}}{{?}}
+            </tbody>
+        </table>
+    </div>
+    {{?}}
+</script>
+<!-- 失物招领表格 end -->
+
+<script type="text/javascript">
+    // 变量indexBox: 
+    // 1、style渲染类型（repairTable:表格盒子，serviceTable:表格盒子，marketTable:表格盒子，lostTable:表格盒子，new：新闻盒子，services:便民服务盒子）
+    // 2、type是link接口的专用参数
+    // 3、url是报修，监督、二手市场、失物招领的专用参数
+    switch (indexBox.style) {
+        // 新闻盒子
+        case "news":
+            data = "{url:'website/frontendWebsite/links',data:['type=" + indexBox.type + "','pageSize=6','pageIndex=1']}";
+            $('#loadNewsBox').attr('data', data);
+            loadTmpl('#loadNewsBox');
+            break;
+        // 便民服务
+        case "bianmin":
+            data = "{url:'website/frontendWebsite/links',data:['type=link005','pageIndex=1','pageSize=6']}";
+            $('#loadBianminBox').attr('data', data);
+            loadTmpl('#loadBianminBox');
+            break;
+        
+        // 报修的表格
+        case "repairTable":
+            data = "{url:'"+ indexBox.url +"',data:['pageSize=6','pageIndex=1']}";
+            $('#loadRepairTableBox').attr('data', data);
+            loadTmpl('#loadRepairTableBox');
+            break;
+        // 监督的表格
+        case "serviceTable":
+            data = "{url:'"+ indexBox.url +"',data:['pageSize=6','pageIndex=1']}";
+            $('#loadServiceTableBox').attr('data', data);
+            loadTmpl('#loadServiceTableBox');
+            break;
+        // 二手市场的表格
+        case "marketTable":
+            data = "{url:'"+ indexBox.url +"',data:['pageSize=6','pageIndex=1']}";
+            $('#loadMarketTableBox').attr('data', data);
+            loadTmpl('#loadMarketTableBox');
+            break;
+        // 失物招领的表格
+        case "lostTable":
+            data = "{url:'"+ indexBox.url +"',data:['pageSize=6','pageIndex=1']}";
+            $('#loadLostTableBox').attr('data', data);
+            loadTmpl('#loadLostTableBox');
+            break;
+    }
+</script>

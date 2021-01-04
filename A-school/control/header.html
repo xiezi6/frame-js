@@ -1,0 +1,229 @@
+<header class="header">
+    <div class="headerBox">
+        <div class="layui-container">
+            <div class="staff">
+                <div class="login-btn">
+                    <a href="">
+                        <div class="login">后勤员工登录</div>
+                    </a>
+                </div>
+                <div class="headerLogins user-info" id="user-info">
+                    <a href="javascript:;" class="user-box">
+                        <img src="img/mrtx.png" id="user-head" />
+                        <span class="user-name" style="color: #FAFAFA;"></span>
+                    </a>
+                    <img src="img/shut_down.png" title="安全退出" id="exit" />
+                </div>
+            </div>
+            <!-- logo、搜索中间行 -->
+            <div class="header-bottom">
+                <!-- logo -->
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="img/logo.png" alt="">
+                    </a>
+                </div>
+                <div class="search">
+                    <input type="text" placeholder="请输入关键字..." class="search_input">
+                    <span class="search_button">
+                        <img src="../img/icon_ss.png" alt="">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 导航栏 -->
+    <div class="navBox layui-container">
+        <nav class="navbar navbar-inverse">
+            <!-- container容器，左右留有余地 -->
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#TaoistsNavBar" aria-expanded="false">
+
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+
+                <div class="collapse navbar-collapse" id="TaoistsNavBar">
+                    <ul class="nav navbar-nav">
+                        <script id="nav-h" type="text/x-dot-template"
+                            data="{url:'website/frontendWebsite/links',data:['type=link002']}">
+                            {{? it && it.length > 0}} {{~ it :value:index}}
+                                <li class="dropdown" data-code='{{=value.code}}'>
+                                    {{?value.link===""}}
+                                        <a href="news.html?typeId={{=value.code}}" class="hidden-sm hidden-xs dropdown-toggle" data-toggle="link" data-target="news.html?typeId={{=value.code}}" target="{{=(value.open==0) ? '_self':'_blank'}}">{{=value.name}}</a>
+                                        <a href="news.html?typeId={{=value.code}}" class="visible-sm visible-xs dropdown-toggle" data-toggle="dropdown" target="{{=(value.open==0) ? '_self':'_blank'}}">{{=value.name}}</a>
+                                    {{??}}
+                                        <a href="{{=value.link}}" class="dropdown-toggle" data-toggle="link" target="{{=(value.open==0) ? '_self':'_blank'}}">{{=value.name}}</a>
+                                    {{?}}
+                                </li>
+                            {{~}} {{?}}
+                        </script>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- 轮播图start -->
+    <div class="img-box">
+        <div id="myCarousel1" data-ride="carousel" class="slide carousel">
+            <div class="carousel-inner">
+                <script id="tmpl-carousel" type="text/x-dot-template"
+                    data="{url:'website/frontendWebsite/links',data:['type=link001']}">
+                    {{? it && it.length > 0}} {{~ it :value : index}}  
+                    {{? index == 0 }}									 
+                    <div class="item active">
+                    <img src="{{=imgUrl}}{{=value.images}}">
+                    </div>
+                    {{??}}
+                    <div class="item">
+                    <img src="{{=imgUrl}}{{=value.images}}">
+                    </div>
+                    {{?}} {{~}} {{?}} {{? it.length > 1}}
+                    <a class="left carousel-control" href="#myCarousel1" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel1" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                    </a>
+                    {{?}}
+                </script>
+            </div>
+        </div>
+    </div>
+    <!-- 轮播图end -->
+</header>
+
+<script type="text/javascript">
+    // 隐藏导航栏的子栏目：刷新后有闪现
+    $('.header_nav>li>ul').hide()
+    // 搜索功能
+    $(document).on('keyup', '.search_input', function (e) {
+        var s_text = $('.search_input').val()
+        if (e.keyCode == 13) {
+            window.open(encodeURI('search.html' + "?findValue=" + s_text));
+        }
+    })
+    // 导航栏显示隐藏二级目录
+    $(document).on('mouseover', '.header_nav>li', function () {
+        $(this).children('ul').show()
+    })
+    $(document).on('mouseout', '.header_nav', function () {
+        $(this).find('li>ul').hide()
+    })
+    // 导航页 
+    loadTmpl("#nav-h")
+    // 轮播图
+    loadTmpl('#tmpl-carousel')
+    // 判断后勤员工是否登录
+    if (!!TokenKey) {
+        // 登录状态
+        // 后勤员工登录
+        $(".user-info").css('display', 'block');
+        $(".login-btn").hide();
+        $(".user-box").attr("href", config + '/site/home');
+        getInfor();
+    } else {
+        // console.log('未登录')
+        // 后勤员工登录
+        $(".user-info").hide();
+        $(".login-btn").css('display', 'block');
+        var tempUrl = loginUrl + 'login?redirect=' + window.location.href;
+        $(".login-btn>a").attr("href", tempUrl);
+
+    }
+    // 判断后勤员工是否登录:把师生登录后的tokenKey放进if条件里面
+    if (false) {
+        // 登录状态
+        // 师生登录
+        $(".loginBtn").hide();
+        $("#userInfo").css('display', 'block');
+        getInfor();
+    } else {
+        // console.log('未登录')
+        // 师生登录
+        $("#userInfo").hide();
+        $(".loginBtn").css('display', 'block');
+        var tempUrl = loginUrl + 'login?redirect=' + window.location.href;
+        $(".login-btn>a").attr("href", tempUrl);
+    }
+    //退出登录方法
+    $(document).on("click", "#exit", function () {
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.confirm('确定退出登录吗？', {
+                icon: 2,
+                btn: ['是', '否'],
+                tips: [2, '#ae1c1c']
+            }, function () {
+                ITSOFT.cookie.clearCookie('ITSOFT-WILAB-SESSION');
+                window.location.href = "index.html"
+            });
+        });
+    });
+    //获取登录人信息函数
+    function getInfor() {
+        ITSOFT.dataAjax({
+            url: dataUrl + "/auth/user/info",
+            type: "get",
+            headers: {
+                Token: token,
+                TokenKey: TokenKey
+            },
+            success: function (res) {
+                $(".user-name").html(res.data.account);
+                $(".user-name").attr("title", res.data.account);
+            }
+        })
+    }
+
+    // 轮播图
+    loadTmpl('#tmpl-carousel')
+    // 导航页 
+    loadTmpl("#nav-h")
+    setTimeout(function () {
+        $('.navbar li').each(function (i, val) {
+            var that = $(this);
+            let data = {
+                schoolCode: schoolCode,
+                website: website,
+                code: $(this)[0].dataset.code.slice(0, 2)
+            }
+            var self = this;
+            var str;
+            ITSOFT.dataAjax({
+                url: dataUrl + "website/frontendWebsite/columns",
+                type: "post",
+                cache: false,
+                async: false,
+                data: data,
+                success: function (res) {
+                    if (res.data.list == undefined || res.data.list.length == 0) {
+                        that.append(str);
+                        return false
+                    }
+                    str = '<ul class="dropdown-menu">';
+                    $(res.data.list).each(function (i, val) {
+                        if (i == res.data.list.length - 1) {
+                            str += '<li><a href="news.html?typeId=' + val.code + '">' + val.name +
+                                '</a></li>'
+                        } else {
+                            str += '<li><a href="news.html?typeId=' + val.code + '">' + val.name +
+                                '</a></li><li class="divider"></li>'
+                        }
+                    })
+                    str += '</ul>';
+                    that.append(str);
+                    $('.header_nav>li>ul').hide()
+                },
+                error: function (res) { }
+            });
+        })
+    }, 300)
+</script>

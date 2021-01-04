@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>后勤服务大厅</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/website.css" />
+  <link rel="stylesheet" href="css/layui.css">
+  <script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/doT.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/crypto-js.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/dencrypt.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/website.js" type="text/javascript" charset="utf-8"></script>
+
+  <style>
+    /* 物品信息 */
+    .detail {
+      margin-top: 20px;
+      margin-bottom: 40px;
+      padding: 20px;
+      box-shadow: 0px 0px 19px 0px rgba(215, 215, 215, 0.35);
+    }
+
+    .detail #detailBox {
+      margin-top: 40px;
+    }
+
+    .comment_top .suggest {
+      display: inline-block;
+      text-align: center;
+      width: 40px;
+      height: 25px;
+      line-height: 25px;
+      font-size: 14px;
+      background-color: #E7F0FF;
+      color: #3080FF;
+      border-radius: 4px;
+    }
+
+    .comment_top .complain {
+      display: inline-block;
+      text-align: center;
+      width: 40px;
+      height: 25px;
+      line-height: 25px;
+      font-size: 14px;
+      background-color: #FFE7E7;
+      color: #F04242;
+      border-radius: 4px;
+    }
+
+    .comment_top .canteen {
+      margin-left: 11px;
+      color: #000000;
+      font-size: 18px;
+      font-weight: blod;
+    }
+
+    .comment_top .state_1 {
+      font-size: 12px;
+      width: 50px;
+      height: 22px;
+      text-align: center;
+      line-height: 30px;
+      border: 1px solid #D9D9D9;
+      border-radius: 4px;
+      color: #666666;
+    }
+
+    .comment_top {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .comment_top .state_0 {
+      font-size: 12px;
+      width: 50px;
+      height: 22px;
+      text-align: center;
+      line-height: 20px;
+      border: 1px solid #F47C48;
+      border-radius: 4px;
+      color: #EB4E09;
+    }
+
+    .comment_content {
+      margin-top: 16px;
+      color: #656565;
+      font-size: 16px;
+    }
+
+    .bottom {
+      margin-top: 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #999999;
+      font-size: 22px;
+    }
+
+    .bottom .icon_text {
+      display: flex;
+      text-align: center;
+    }
+
+    .bottom .icon_text:last-child {
+      text-align: right;
+    }
+
+    .bottom .comment_time {
+      margin-left: 20px;
+    }
+
+    .bottom .icon_text img {
+      position: relative;
+      bottom: -1px;
+      left: 0;
+      margin-right: 10px;
+      width: 20px;
+      height: 24px;
+    }
+
+    .bottom .icon_text div {
+      font-size: 22px;
+    }
+
+    .imgShow {
+      margin-top: 16px;
+      display: flex;
+      width: 100%;
+    }
+
+    .imgShow img {
+      margin-right: 20px;
+      width: 15%;
+      height: 150px;
+    }
+
+    .bottom .icon_span:first-child {
+      float: left;
+      height: auto;
+      display: flex;
+      font-size: 14px;
+      align-items: center;
+    }
+
+    .bottom .icon_span div {
+      display: flex;
+      align-items: center;
+    }
+
+    .bottom .icon_span:last-child {
+      float: right;
+      display: flex;
+      font-size: 14px;
+      align-items: center;
+    }
+
+    .icon_span img {
+      margin-right: 6px;
+      width: 14px;
+      height: 16px;
+      display: inline-block;
+    }
+
+    .bottom .comment_time {
+      display: flex;
+      align-items: center;
+    }
+
+    .bottom .comment_time img {
+      height: 14px;
+    }
+
+    .location {
+      width: 15px !important;
+      height: 16px;
+    }
+
+    /* 物品信息 */
+    #detailBox_02 {
+      display: flex;
+    }
+
+    /* 修改按钮样式 */
+    .selects .el-radio-button__inner {
+      border: 0px;
+      color: #333333 !important;
+      padding: 10px 15px;
+    }
+
+    .selects .el-radio-button:first-child .el-radio-button__inner {
+      border-left: 0px;
+    }
+
+    .selects .el-radio-button__orig-radio:checked+.el-radio-button__inner {
+      background-color: #FFFFFF !important;
+      border-left: 0px;
+      color: #409eff !important;
+    }
+
+    .el-pagination__total {
+      margin-left: 20px;
+    }
+
+    /* 自适应 */
+    @media (max-width: 769px) {
+      .commontList {
+        margin: 10px;
+      }
+
+      .container {
+        padding: 0;
+      }
+
+      .bottom {
+        position: relative;
+      }
+
+      .bottom .icon_span_location {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        margin-left: 0 !important;
+      }
+
+      .canteen {
+        font-size: 16px !important;
+      }
+
+      .imgShow img {
+        width: 100px;
+        height: 80px;
+      }
+
+      .detail {
+        background-color: #fff !important;
+        margin-bottom: 0px;
+        margin-top: 20px;
+      }
+
+      .detail #detailBox {
+        margin-top: 20px;
+      }
+
+      #detailBox_02 {
+        display: block;
+        margin-top: 10px !important;
+      }
+
+      #detailBox_02 .icon_span {
+        margin-top: 5px !important;
+        margin-left: 5px !important;
+      }
+
+      #detailBox_02>div:last-child {
+        margin-top: 5px;
+      }
+
+      #detailBox_02>div:nth-child(3) {
+        margin-top: 5px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 头部 -->
+  <div id="header" class="header">
+    <script type="text/javascript">
+      $('#header').load('control/header.html')
+    </script>
+  </div>
+  <!-- 头部end -->
+  <!-- 内容 -->
+  <div class="content" style="color: #333333;background-color: #F9F9F9;">
+    <div class="container maxWidth">
+      <!-- 面包屑 -->
+      <div class="sls-navigation"
+        style="margin-bottom: 12px;font-size: 12px;color: #666666;display: flex;align-items: center;">
+        <img src="./img/image/mbx.png" style="margin-right: 10px;width:11px;height: 13px;">
+        <a href="index.html" style="color: #666666;">首页</a>&nbsp;/&nbsp;
+        <a href="second_hand_market.html" id="stypename" style="color: #666666;">二手市场</a>&nbsp;/&nbsp;
+        <a href="javascript:;" id="stypename" style="color: #666666;">详情</a>
+      </div>
+      <div class="detail" style="background-color: #fff;">
+        <div>
+          <span style="height: 12px;border-left: 3px solid #f34b0d;"></span>
+          <span style="margin-left: 10px;">物品信息</span>
+        </div>
+        <div id="detailBox" style="color: black;">
+          <script type="text/x-dot-template" id="detailBox_dot">
+                <div class="comment_top" style="display: flex;">
+                  <span>
+                      {{?it.type == 1}}
+                      <span class="suggest">{{=it.type}}</span>
+                      {{??it.type==2}}
+                      <span class="complain">{{=it.type}}</span>
+                      {{?}}
+                      <span class="canteen">{{=it.title}}</span>
+                  </span>
+                </div>
+                <div class="comment_content">{{=it.description}}</div>
+                {{it.images}}
+                {{?it.images && it.images.length>0}}
+                <div class="imgShow">
+                  {{~it.images:value}}
+                  <img src="{{=imgUrl + value}}">
+                  {{~}}
+                </div>
+                {{?}}
+              </script>
+        </div>
+      </div>
+      <div class="detail" style="background-color: #fff;">
+        <div>
+          <span style="height: 12px;border-left: 3px solid #f34b0d;"></span>
+          <span style="margin-left: 10px;">联系方式</span>
+        </div>
+        <div id="detailBox_02" style="color: black;margin-top: 40px;">
+          <script type="text/x-dot-template" id="detailBox_dot_02">
+                <div>
+                  <div class="icon_span" style="margin-left: 20px;width: ">
+                    <img src="./img/detail_ren.png" class="location">
+                    <span style="display: inline-block;width: 70px">发布人 ：</span>
+                    <span>{{=it.createName}}</span>
+                  </div>
+                  <div class="icon_span hidden-xs" style="margin-left: 20px;margin-top: 10px">
+                    <img src="./img/detail_main.png" class="location">
+                    <span>物品分类：</span>
+                    <span>{{=it.itemName}}</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="icon_span" style="margin-left: 20px;">
+                    <img src="./img/phone.png" class="location">
+                    <span>联系电话：</span>
+                    <span>{{=it.contactNumber}}</span>
+                  </div>
+                  <div class="icon_span hidden-xs" style="margin-left: 20px;margin-top: 10px">
+                    <img src="./img/detail_location.png" class="location">
+                    <span>所在地址：</span>
+                    <span>{{=it.address}}</span>
+                  </div>
+                </div>
+                <div>
+                  <span class="icon_span" style="margin-left: 20px;">
+                    <img src="./img/detail_sj.png" class="location">
+                    <span>发布时间：</span>
+                    {{= it.createTime}}
+                    <span>{{=it.createTime.substring(0,16)}}</span>
+                    {{?}}
+                  </span>
+                </div>
+                <div class="visible-xs">
+                  <div class="icon_span" style="margin-left: 20px;margin-top: 10px">
+                    <img src="./img/detail_main.png" class="location">
+                    <span>物品分类：</span>
+                    <span>{{=it.itemName}}</span>
+                  </div>
+                </div>
+                <div class="visible-xs">
+                  <div class="icon_span" style="margin-left: 20px;margin-top: 10px">
+                    <img src="./img/detail_location.png" class="location">
+                    <span>所在地址：</span>
+                    <span>{{=it.address}}</span>
+                  </div>
+                </div>
+              </script>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 内容end -->
+
+  <!-- 底部 -->
+  <div id="footer" class="footer">
+    <script type="text/javascript">
+      $('#footer').load('control/footer.html')
+    </script>
+  </div>
+  <!-- 底部end -->
+
+  <script>
+    $(function () {
+      var id = window.location.href.split('?')[1].split('=')[1]
+      getDetail(id)
+    })
+    // 方法：获取详情信息
+    function getDetail(id) {
+      var data = {
+        id,
+      }
+      ITSOFT.dataAjax({
+        url: dataUrl + "micro/frontendManager/getDetail",
+        data: data,
+        type: "post",
+        'Content-Type': "application/x-www-form-urlencoded",
+        cache: false,
+        async: true,
+        success: function (res) {
+          if (res) {
+            for (var item in res) {
+              if (item == "images" && res[item]) {
+                res[item] = res[item].split(',')
+              }
+            }
+            res.imgUrl = imgUrl
+            tmpltxt = doT.template(document.getElementById("detailBox_dot").innerHTML);//生成模板方法
+            document.getElementById("detailBox").innerHTML = tmpltxt(res);
+            tmpltxt = doT.template(document.getElementById("detailBox_dot_02").innerHTML);//生成模板方法
+            document.getElementById("detailBox_02").innerHTML = tmpltxt(res);
+          }
+        }
+      })
+    }
+  </script>
+</body>
+
+</html>

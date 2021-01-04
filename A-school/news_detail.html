@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>后勤服务大厅</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/website.css" />
+  <link rel="stylesheet" href="css/layui.css">
+  <script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/doT.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/crypto-js.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/dencrypt.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/website.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+  <!-- 头部 -->
+  <div id="header" class="header">
+    <script type="text/javascript">
+      $('#header').load('control/header.html')
+    </script>
+  </div>
+  <!-- 头部end -->
+  <!-- 内容 -->
+  <div class="content">
+    <div class="container max-width">
+      <script id="detailDot1" type="text/x-dot-template">
+        <!-- 面包屑导航 -->
+      <div class="sls-navigation"
+        style="margin-bottom: 12px;font-size: 14px;color: #666666;display: flex;align-items: center;">
+        <img src="./img/mbx.png" style="margin-right: 10px;width:11px;height: 13px;">
+        <a href="index.html" class="center">首页</a>&nbsp;>&nbsp;
+        <a href="news.html?typeId={{=it.columnCode}}" id="stypename">{{=it.columnName.split('/')[0]}}</a>&nbsp;>&nbsp;
+        {{? it.columnName.split('/')[1]}}
+        <a href="news.html?typeId={{=it.columnCode}}" id="stypename">{{=it.columnName.split('/')[1]}}</a>&nbsp;>&nbsp;
+        {{?}}
+        <span href="javascript:;">详情页</span>
+      </div>
+      <div class="sls-box">
+        <h1 class="sls-content-title">{{=it.title}}</h1>
+        <div class="sls-content-tag">
+          <span>作者：{{=it.author}}</span>
+          <span>时间：{{=ITSOFT.dateFormat(it.publishTime)}}</span>
+          <span>浏览次数：{{=it.browse}}次</span>
+        </div>
+        <div class="sls-content">{{=Decrypt(it.content)}}</div>
+      </div>
+      </script>
+    </div>
+  </div>
+
+
+  <!-- 底部 -->
+  <div id="footer" class="footer">
+    <script type="text/javascript">
+      $('#footer').load('control/footer.html')
+    </script>
+  </div>
+  <!-- 底部end -->
+
+  <script>
+    var id = ITSOFT.getUrlParam('id');
+    var data = "{url:'website/frontendWebsite/info',data:['id=" + id + "']}"
+    $('#detailDot1').attr('data', data);
+    loadAllTmpl()
+    setTimeout(function () {
+      var h = $(window).height() - $('#header').height() - $('#footer').height() - 15
+      $('.content').css('min-height', h)
+      // 图片懒加载
+      let imgs = document.getElementsByTagName('img')
+      $.each(imgs, function (index, item) {
+        let src = $(item).attr("src");
+        $(item).attr('src', "");
+        $(item).attr('lay-src', src);
+      });
+      layui.use('flow', function () {
+        var flow = layui.flow;
+        flow.lazyimg();
+      });
+    }, 300)
+
+  </script>
+</body>
+
+</html>

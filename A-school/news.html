@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>后勤服务大厅</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/website.css" />
+	<link rel="stylesheet" href="css/layui.css">
+	<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/doT.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/crypto-js.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/dencrypt.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/website.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+	<!--头部-->
+	<div class="header" id="header">
+		<script type="text/javascript">$('#header').load("control/header.html");</script>
+	</div>
+	<!--头部end-->
+	<!--内容区-->
+	<div class="date container max-width">
+		<!-- 面包屑导航 -->
+		<div class="sls-navigation"
+			style="margin-bottom: 12px;font-size: 14px;color: #666666;display: flex;align-items: center;">
+			<script id="listDot11_2" type="text/x-dot-template">
+				<img src="./img/mbx.png" style="margin-right: 10px;width:11px;height: 13px;">
+				<a href="index.html" class="center">首页</a>&nbsp;>&nbsp;
+				<span>{{=it.column.name}}</span>
+			</script>
+		</div>
+		<!--新闻列表 目录-->
+		<div class="data_lt fl col-md-3 col-sm-3 col-xs-12">
+			<div class="xyfu">
+				<script id="listDot11" type="text/x-dot-template">
+						<span>{{=it.column.name}}</span>
+					</script>
+			</div>
+			<ul id="menuLeftBox">
+				<script id="listDot1" type="text/x-dot-template">
+					{{? it.list && it.list.length > 0}} {{~ it.list :value}}
+						{{? value.code === typeCode}}
+						<li class="d li_style" data-id="{{=value.code}}" myAttr="{{=value.mode}}" title="{{=value.name}}">
+							<span>{{=value.name}}</span>
+						</li>
+						{{??}}
+						<li class="d" data-id="{{=value.code}}" myAttr="{{=value.mode}}" title="{{=value.name}}">
+							<span>{{=value.name}}</span>
+						</li>
+						{{?}}
+					{{~}} {{?}}
+				</script>
+			</ul>
+		</div>
+		<!--新闻列表左边end-->
+
+		<!--新闻列表右边-->
+		<div class="data_rt fr">
+			<div class="data_rt1"></div>
+		</div>
+		<!--新闻列表右边end-->
+	</div>
+	<!--内容区end-->
+	<!--底部区域-->
+	<div class="footer" id="footer">
+		<script type="text/javascript">$('#footer').load("control/footer.html");</script>
+	</div>
+	<!--底部区域end-->
+</body>
+<script type="text/javascript">
+	// 鼠标点击子目录时改变样式并切换面包屑
+	$(document).on('click', '#menuLeftBox>li', function () {
+		// 切换样式
+		$('#menuLeftBox>li').removeClass('li_style')
+		$(this).addClass('li_style')
+		// 改变列表页标题
+		$('.viewTitle').text($(this).text())
+		$('.breadcrumb>.top_active>.top_nav').text($(this).text())
+		// 传递参数
+		$(this).attr('data-id')
+	})
+
+	var pageSize = 10;
+	var pageIndex = 1;
+	var myAttr, innertext;
+	var typeCode = ITSOFT.getUrlParam('typeId');
+	var data = "{url:'website/frontendWebsite/columns',data:['code=" + typeCode.slice(0, 2) + "']}";
+	$('#listDot1').attr('data', data);
+	$('#listDot11').attr('data', data);
+	$('#listDot11_2').attr('data', data);
+	$('#listDot11_3').attr('data', data);
+	$('#listDot22').attr('data', data);
+	$(document).on('click', '#menuLeftBox li', function () {
+		// 改变样式
+		$('#menuLeftBox li.center').removeClass('center');
+		$(this).addClass('center');
+		// 
+		typeCode = $(this).attr('data-id');
+		myAttr = $(this).attr('myAttr');
+		innertext = $(this).text();
+		if (myAttr == 0) {
+			$('.data_rt1').load('news_single.html');
+		} else if (myAttr == 1) {
+			$('.data_rt1').load('news_list.html');
+		}
+	})
+
+	function page(rowstotal) {
+		layui.use(['laypage', 'layer'], function () {
+			var laypage = layui.laypage
+
+			//完整功能
+			laypage.render({
+				elem: 'pagination'
+				, count: rowstotal
+				, layout: ['count', 'prev', 'page', 'next', 'skip']
+				, first: '首页'
+				, last: '尾页'
+				, jump: pageselectCallback
+				, theme: "#01488E"
+			});
+		});
+	}
+
+	// 分页回调
+	function pageselectCallback(obj, first) {
+		pageIndex = obj.curr
+		pageSize = obj.limit
+		//首次不执行
+		if (!first) {
+			$('.data_rt1').load('news_list.html');
+		}
+	}
+
+	loadAllTmpl();
+	if (typeCode.length == 2) {
+		$('.breadcrumb>.top_active').text('')
+		$('.data_rt1').load('news_list.html');
+	} else {
+		setTimeout(function () {
+			if (typeCode.length == 4) {
+				$('#menuLeftBox li').each(function (i, a) {
+					if ($(this).attr('data-id') == typeCode) {
+						var myAttr = $(this).attr('myAttr');
+						innertext = $(this).text();
+						if (myAttr == 0) {
+							$('.data_rt1').load('news_single.html');
+						} else if (myAttr == 1) {
+							$('.data_rt1').load('news_list.html');
+						}
+					}
+				});
+			}
+		}, 500)
+	}
+</script>
+
+</html>

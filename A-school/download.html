@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>后勤服务大厅</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/website.css" />
+	<link rel="stylesheet" href="css/layui.css">
+	<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/doT.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/crypto-js.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/dencrypt.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/download.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/website.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<style>
+	.downView_top {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+	}
+
+	.downView_top .crumbs {
+		width: 20%;
+	}
+
+	.downView_top img {
+		margin-right: 10px;
+		width: 18px;
+		height: 18px;
+	}
+
+	::-webkit-input-placeholder {
+		color: rgb(88, 82, 82);
+	}
+
+	.breadcrumb {
+		margin-bottom: 0;
+	}
+</style>
+</head>
+
+<body>
+	<!--头部-->
+	<div class="header" id="header">
+		<script type="text/javascript">$('#header').load("control/header.html");</script>
+	</div>
+	<!--头部end-->
+	<!--内容区-->
+	<div class="date container max-width">
+		<!-- 面包屑导航 -->
+		<div class="sls-navigation" style="margin-bottom: 12px;font-size: 14px;color: #666666;display: flex;align-items: center;">
+			<img src="./img/mbx.png" style="margin-right: 10px;width:11px;height: 13px;">
+			<a href="index.html" class="center">首页</a>&nbsp;>&nbsp;
+			<span>下载中心</span>
+		</div>
+
+		<!--新闻列表 目录-->
+		<div class="data_lt fl col-md-3 col-sm-3 col-xs-12">
+			<div class="xyfu" style="background-color: #e3f0fa;">
+				文档下载
+			</div>
+			<ul id="menuLeftBox">
+				<script id="downDot2" type="text/x-dot-template" data="{url:'website/frontendWebsite/classList'}">
+					{{?  it && it.length > 0}} {{~  it :value}}
+					<li class="d" data-id="{{=value.id}}">
+						<span>{{=value.name}}</span>
+						<i class="iconfont iconfont-arrow2-right pull-right"></i>
+					</li>
+					{{~}}
+					{{?}}
+				</script>
+			</ul>
+		</div>
+		<!--新闻列表左边end-->
+
+		<!--新闻列表右边-->
+		<div class="data_rt fr col-md-8 col-sm-8 col-xs-12">
+			<div class="data_rt1"></div>
+			<div id="page" class="page"></div>
+		</div>
+		<!--新闻列表右边end-->
+	</div>
+	<!--内容区end-->
+	<!--底部区域-->
+	<div class="footer" id="footer">
+		<script type="text/javascript">$('#footer').load("control/footer.html");</script>
+	</div>
+	<!--底部区域end-->
+</body>
+<script type="text/javascript">
+	loadTmpl('#downDot2')
+	var dataUrl = dataUrl
+	var imgUrl = imgUrl
+	var pageSize = 10
+	var pageNumber = 10
+	var classId
+	$(document).on('click', '#menuLeftBox li', function () {
+		// 改变样式
+		$('#menuLeftBox li').removeClass('lisStelect_style');
+		$(this).addClass('lisStelect_style');
+		// 
+		classId = $(this).attr('data-id');
+		$('.data_rt1').load('download_list.html');
+	})
+	// 页面加载渲染第一种文档列表
+	setTimeout(function () {
+		// classId = $('#menuLeftBox>li')[0].getAttribute('data-id')
+		classId = ''
+		$('.data_rt1').load('download_list.html')
+	}, 500)
+</script>
+
+</html>

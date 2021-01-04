@@ -1,0 +1,87 @@
+/* 通用样式，初始化样式和版心 */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: MicrosoftYaHei;
+}
+
+a {
+    text-decoration: none;
+    color: #333333;
+}
+
+a:hover {
+    /* a标签经过时统一样式，以防万一可以加个important */
+    /* color: green; */
+    text-decoration: none !important;
+}
+a:link{ text-decoration: none;}
+
+input,
+button,
+select,
+textarea {
+    outline: none;
+}
+
+li {
+    list-style: none;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.gridBox {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 40px;
+}
+
+/* 通用样式，初始化样式和版心end */
+/* bootstrap格式化 */
+.btn-group-vertical>.btn-group:after,
+.btn-group-vertical>.btn-group:before,
+.btn-toolbar:after,
+.btn-toolbar:before,
+.clearfix:after,
+.clearfix:before,
+.container-fluid:after,
+.container-fluid:before,
+.container:after,
+.container:before,
+.dl-horizontal dd:after,
+.dl-horizontal dd:before,
+.form-horizontal .form-group:after,
+.form-horizontal .form-group:before,
+.modal-footer:after,
+.modal-footer:before,
+.nav:after,
+.nav:before,
+.navbar-collapse:after,
+.navbar-collapse:before,
+.navbar-header:after,
+.navbar-header:before,
+.navbar:after,
+.navbar:before,
+.pager:after,
+.pager:before,
+.panel-body:after,
+.panel-body:before,
+.row:after,
+.row:before {
+    display: table;
+    content: none !important;
+}
+
+/* bootstrap格式化end */
+
+@media screen and (min-width: 1300px) {
+    .layui-container {
+        width: 1220px!important;
+    }
+}

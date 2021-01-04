@@ -1,0 +1,13 @@
+{
+  "schoolCode": "10618",
+  "loginUrl": "https://it.zhhouqin.com/account/",
+  "ipAddress": "https://it.zhhouqin.com/api/",
+  "imgUrl": "https://it.zhhouqin.com/fileupload/",
+  "website": "af632c4fa7aa492fa53146b07910f165",
+  "clientId": "web201911chengdu",
+  "clientSecret": "bf8ec0449942e7f4",
+  "fileServer": "https://it.zhhouqin.com/fileupload/",
+  "serviceHall":"https://it.zhhouqin.com/fwjd/",
+  "repairHall":"https://it.zhhouqin.com/znbx/",
+  "config": "https://it.zhhouqin.com"
+}
